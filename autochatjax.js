@@ -2,8 +2,8 @@
 // @name         Auto ChatJax
 // @namespace    http://tampermonkey.net/
 // @version      0.2
-// @description  try to take over the world!
-// @author       You
+// @description  Automatically launch Chatjax for Stack Exchange chats.
+// @author       Teh Flamin' Taco
 // @match        http://chat.stackexchange.com/*
 // @match        http://chat.stackoverflow.com/*
 // @grant        none
