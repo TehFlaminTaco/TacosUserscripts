@@ -2,8 +2,8 @@
 // @name         Prettify Chat
 // @namespace    http://tampermonkey.net/
 // @version      0.2
-// @description  try to take over the world!
-// @author       You
+// @description  Use Google Prettifier on Stack Exchange's chat's codeblocks.
+// @author       Teh Flamin' Taco
 // @match        http://chat.stackexchange.com/*
 // @match        http://chat.stackoverflow.com/*
 // @grant        none
