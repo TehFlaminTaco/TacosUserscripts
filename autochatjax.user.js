@@ -4,8 +4,8 @@
 // @version      0.2
 // @description  Automatically launch Chatjax for Stack Exchange chats.
 // @author       Teh Flamin' Taco
-// @match        http://chat.stackexchange.com/*
-// @match        http://chat.stackoverflow.com/*
+// @match        *://*chat.stackexchange.com/*
+// @match        *://*chat.stackoverflow.com/*
 // @grant        none
 // ==/UserScript==
 
