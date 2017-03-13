@@ -16,12 +16,17 @@
     
     var codes={shrug: "¯\\\\_(ツ)_/¯",
                tableflip: "(ノ°Д°）ノ︵ ┻━┻",
-               o_o: "ಠ_ಠ"};
+               o_o: "ಠ_ಠ",
+               ["\\$(.*?)\\$"]: function(_,s){return "https://latex.codecogs.com/gif.latex?"+encodeURI(s)+"%.gif";}};
     setInterval(function(){
         for (var code in codes){
             var x = document.getElementById("input");
-            if(x.value === ("/"+code)){
-                x.value = codes[code];
+            if(x.value.match("^/"+code+"$")){
+                if(typeof codes[code] == "function"){
+                    x.value = codes[code].apply(null,x.value.match("^/"+code+"$"));
+                }else{
+                    x.value = codes[code];
+                }
             }
         }
     },300);
