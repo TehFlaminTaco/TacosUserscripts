@@ -17,7 +17,7 @@
     var codes={shrug: "¯\\\\_(ツ)_/¯",
                tableflip: "(ノ°Д°）ノ︵ ┻━┻",
                o_o: "ಠ_ಠ",
-               ["\\$(.*?)\\$"]: function(_,s){return "https://latex.codecogs.com/gif.latex?"+encodeURI(s)+"%.gif";}};
+               ["\\$(.*?)\\$"]: function(_,s){return "https://latex.codecogs.com/gif.latex?"+encodeURI(s).replace("%7B","{").replace("%7D","}")+"%.gif";}};
     setInterval(function(){
         for (var code in codes){
             var x = document.getElementById("input");
