@@ -20,7 +20,7 @@
                disapprove: "ಠ_ಠ",
                like: "(•◡•)/",
                unflip: "┬─┬﻿ ノ( ゜-゜ノ)",
-               ["\\$(.*?)\\$"]: function(_,s){return "https://latex.codecogs.com/gif.latex?"+encodeURI(s)+"%.gif";}};
+               ["\\$(.*?)\\$"]: function(_,s){return "https://latex.codecogs.com/gif.latex?"+encodeURI(s).replace("%7B","{").replace("%7D","}")+"%.gif";}};
     setInterval(function(){
         for (var code in codes){
             var x = document.getElementById("input");
