@@ -17,6 +17,9 @@
     var codes={shrug: "¯\\\\_(ツ)_/¯",
                tableflip: "(ノ°Д°）ノ︵ ┻━┻",
                o_o: "ಠ_ಠ",
+               disapprove: "ಠ_ಠ",
+               like: "(•◡•)/",
+               unflip: "┬─┬﻿ ノ( ゜-゜ノ)",
                ["\\$(.*?)\\$"]: function(_,s){return "https://latex.codecogs.com/gif.latex?"+encodeURI(s)+"%.gif";}};
     setInterval(function(){
         for (var code in codes){
