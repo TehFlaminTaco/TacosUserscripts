@@ -18,7 +18,7 @@
         var matches = x[i].textContent.match(/^(https?:\/\/)?(www\.)?strawpoll.me\/(\d+)$/gi);
         if(matches){
             console.log(matches);
-            x[i].innerHTML = "<iframe src=\"https://www.strawpoll.me/embed_1/"+matches[0].match(/\d+/)[0]+"\" style=\"width:100%;height:280px;border:0;\">Loading poll...</iframe>";
+            x[i].innerHTML = "<center><iframe src=\"https://www.strawpoll.me/embed_1/"+matches[0].match(/\d+/)[0]+"\" style=\"width:700px;height:320px;border:0;\">Loading poll...</iframe></center>";
         }
     }},500);
 })();
