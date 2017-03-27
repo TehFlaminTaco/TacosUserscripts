@@ -28,13 +28,7 @@
     setInterval(function(){
         for (var code in codes){
             var x = document.getElementById("input");
-            if(x.value.match("/"+code)){
-                if(typeof codes[code] == "function"){
-                    x.value = codes[code].apply(null,x.value.match("^/"+code+"$"));
-                }else{
-                    x.value = codes[code];
-                }
-            }
+            x.value = x.value.replace("/"+code,codes[code]);
         }
     },300);
 })();
