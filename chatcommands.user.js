@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Chat Commands
 // @namespace    http://tampermonkey.net/
-// @version      0.2.2
+// @version      0.2.3
 // @description  Add some simple ascii art commands.
 // @author       Teh Flamin' Taco
 // @match        *://*chat.stackexchange.com/*
