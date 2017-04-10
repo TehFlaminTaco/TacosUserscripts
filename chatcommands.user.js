@@ -24,8 +24,8 @@
                why: "ლ(ಠ益ಠლ)",
                cool: "(▀̿Ĺ̯▀̿ ̿)",
                lenny: "( ͡° ͜ʖ ͡°)",
-               ["\\$$(.+?)\\$"]: function(_,s){return "http://www.tehflamintaco.com/mathjax/$$"+encodeURI(s)+".png";},
-               ["\\$(.+?)\\$"]: function(_,s){return "http://www.tehflamintaco.com/mathjax/$"+encodeURI(s)+".png";}};
+               ["\\$$(.+?)\\$"]: function(_,s){return "http://a-ta.co/mathjax/$$"+encodeURI(s)+".svg";},
+               ["\\$(.+?)\\$"]: function(_,s){return "http://a-ta.co/mathjax/$"+encodeURI(s)+".svg";}};
     setInterval(function(){
         for (var code in codes){
             var x = document.getElementById("input");
