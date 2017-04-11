@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Caret Reply
 // @namespace    http://tampermonkey.net/
-// @version      1.0.0
+// @version      1.0.1
 // @description  Automatically reply to messages by using ^Message
 // @author       You
 // @match        *://*chat.stackexchange.com/*

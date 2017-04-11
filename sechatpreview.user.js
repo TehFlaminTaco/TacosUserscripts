@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Chat Preview
 // @namespace    http://tampermonkey.net/
-// @version      0.1.3
+// @version      0.1.4
 // @description  Preivew SE chat before posting!
 // @author       You
 // @match        *://chat.stackexchange.com/rooms/*
