@@ -32,13 +32,18 @@ function markdownTaco(s){
 
     // Your code here...
 
-    $("#main").append(`<div id="chat-preview" style="position:fixed;bottom:80px;margin-bottom:12px;border:solid;border-radius:4px;background:white;padding:4px;"></div>`);
+    $("#main").append(`<div id="chat-preview" style="position:fixed;bottom:80px;margin-bottom:12px;border:solid;border-radius:4px;background:white;padding:4px;display:none"></div>`);
     var stored="";
     var timer = -1;
     setInterval(function(){
         var S = document.getElementById("input").value;
         var chat_prev = document.getElementById("chat-preview");
         if(S!==null && stored!=S){
+            if(S.length===0){
+                $(chat_prev).css({display: 'none'});
+            }else{
+                $(chat_prev).css({display: ''});
+            }
             if(timer!=-1){
                 clearTimeout(timer);
             }
