@@ -74,21 +74,19 @@
 		}
 		if(input.val().match(/^\^/)){
 			var carets = input.val().match(/^\^+/)[0];
-			console.log($(taco_storedMessages[taco_storedMessages.length - carets.length]).text());
 		}
 	});
 
 	input.bindAs(0,'keydown',function(event){
 		if(event.which==13){
-			var text = input.val();
-			console.log(text);
+			var text = input.val().replace(/^\^\*(\d+)/, function(a,b){return ("^").repeat(Number(b))});
 			var carets = text.match(/^\^+/);
 			if(!carets){
 				return;
 			}
 			var carets = carets[0];
 
-			input.val(input.val().replace(/^\^+/,":"+taco_storedMessages[taco_storedMessages.length - carets.length].getAttribute("id").replace(/message-/,"")+" "));
+			input.val(text.replace(/^\^+/,":"+taco_storedMessages[taco_storedMessages.length - carets.length].getAttribute("id").replace(/message-/,"")+" "));
 		}
 	});
 })();

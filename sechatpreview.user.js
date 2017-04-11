@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Chat Preview
 // @namespace    http://tampermonkey.net/
-// @version      0.1.2
+// @version      0.1.3
 // @description  Preivew SE chat before posting!
 // @author       You
 // @match        *://chat.stackexchange.com/rooms/*
@@ -12,14 +12,15 @@
 function markdownTaco(s){
     var wrap_left = "";
     var wrap_right = "";
+    s = s.replace(/^\^\*(\d+)/, function(a,b){return ("^").repeat(Number(b))});
     if(s.match(/^\^/) && (typeof taco_storedMessages!='undefined')){
-        var carets = $("#input").val().match(/^\^+/)[0];
+        var carets = s.match(/^\^+/)[0];
         var message = $(taco_storedMessages[taco_storedMessages.length - carets.length]);
         var user_name = message.parent().parent().find(".tiny-signature").find(".username").text();
         wrap_left = "<b>" + user_name + "</b><br><b style='color:gray'>"+message.text() + "</b><br><br>";
         s = s.replace(/^\^+/, "");
     }
-    if(s.match(/(gif|png|jpg|jpeg|bmp)$/i)){
+    if(s.match(/(gif|png|jpg|jpeg|bmp|svg)$/i)){
         return "<img src="+s+" />";
     }
     return wrap_left + markdownMini(s) + wrap_right;
