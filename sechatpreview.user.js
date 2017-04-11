@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Chat Preview
 // @namespace    http://tampermonkey.net/
-// @version      0.1.1
+// @version      0.1.2
 // @description  Preivew SE chat before posting!
 // @author       You
 // @match        *://chat.stackexchange.com/rooms/*
@@ -12,7 +12,7 @@
 function markdownTaco(s){
     var wrap_left = "";
     var wrap_right = "";
-    if(s.match(/^\^/) && taco_storedMessages){
+    if(s.match(/^\^/) && (typeof taco_storedMessages!='undefined')){
         var carets = $("#input").val().match(/^\^+/)[0];
         var message = $(taco_storedMessages[taco_storedMessages.length - carets.length]);
         var user_name = message.parent().parent().find(".tiny-signature").find(".username").text();
