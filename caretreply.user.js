@@ -79,7 +79,7 @@
 
 	input.bindAs(0,'keydown',function(event){
 		if(event.which==13){
-			var text = input.val().replace(/^\^\*(\d+)/, function(a,b){return ("^").repeat(Number(b))});
+			var text = input.val().replace(/^\^\*(\d+)/, function(a,b){return ("^").repeat(Number(b));});
 			var carets = text.match(/^\^+/);
 			if(!carets){
 				return;
