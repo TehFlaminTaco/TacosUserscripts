@@ -142,7 +142,7 @@
                 return;
             }
 
-            input.val(msg.getAttribute("id").replace(/message-/, ":") + caretReply.getMessageText(text));
+            input.val(msg.getAttribute("id").replace(/message-/, ":") + " " + caretReply.getMessageText(text));
             /*
             var text = input.val().replace(/^\^\*(\d+)/, function(a,b){return ("^").repeat(Number(b));});
             var carets = text.match(/^\^+/);
