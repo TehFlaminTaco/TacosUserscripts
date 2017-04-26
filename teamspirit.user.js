@@ -13,25 +13,42 @@
     'use strict';
 
     // Your code here...
-	setInterval(function(){
-	var x=$(".user-container");
-	x.each((i,a)=>{
-		try{
-			var names = $(a).find(".username");
-			if(names.length > 0){
-				names.css({color : a.getAttribute("class").match(/\d+/)[0]%2==0 ? "#F00" : "#00F"})
-			}
-		}catch(e){}
-	})
-	$(".votesummary .collapsible").children()
-	.each(
-		(a,b)=>{
-			var links = $(b).find('a');
-			$(links[links.length-1]).css({["color"] : links[links.length-1].getAttribute("href").match(/users\/(\d+)/)[1]%2==0 ? "#F00" : "#00F"});
-		}
-	)},100);
+
+    function getHref(jEle){
+		return jEle.attr("href") || getHref(jEle.parent());
+	}
+
+	$('head').append(`<style>
+	.bluestar{
+		background: url(http://a-ta.co/content/bluestar.png)
+	}
+	.redstar{
+		background: url(http://a-ta.co/content/redstar.png)
+	}
+	</style>`)
+
+
 
 	setInterval(function(){
+
+		$(".username").each((a,b)=>{
+			var jB = $(b);
+			if(!jB.find(".stars").length){
+				jB.prepend(`<span class='stars vote-count-container'><span class='img vote' style='background-image: url(${getHref(jB).match(/\/users\/(\d+)/)[1]%2==0 ? 'http://i.imgur.com/6RZ23Ak.png' : 'http://i.imgur.com/6jKoAti.png'}) !important'></span></span>`);
+			}
+		})
+
+		$(".votesummary .collapsible").children()
+		.each(
+			(a,b)=>{
+				var links = $(b).find('a');
+				var jLink = $(links[links.length-1]);
+				if(!jLink.find(".stars").length){
+					jLink.prepend(`<span class='stars vote-count-container'><span class='img vote' style='background-image: url(${links[links.length-1].getAttribute("href").match(/users\/(\d+)/)[1]%2==0 ? "http://i.imgur.com/6RZ23Ak.png' : 'http://i.imgur.com/6jKoAti.png" : "http://i.imgur.com/6jKoAti.png"}) !important'></span></span>`);
+				}
+			}
+		)
+
 		var x = $(".user-container");
 		var cRed = 0;
 		var cBlue = 0;
