@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Caret Reply
 // @namespace    http://tampermonkey.net/
-// @version      1.0.3
+// @version      1.0.4
 // @description  Automatically reply to messages by using ^Message
 // @author       You
 // @match        *://*chat.stackexchange.com/*
@@ -141,8 +141,12 @@
             if(!msg){
                 return;
             }
-
-            input.val(msg.getAttribute("id").replace(/message-/, ":") + " " + caretReply.getMessageText(text));
+            if(caretReply.getMessageText(text)=="*"){
+                $(msg).find(".meta").find(".stars").find(".img.vote").click();
+                input.val("");
+            }else{
+                input.val(msg.getAttribute("id").replace(/message-/, ":") + " " + caretReply.getMessageText(text));
+            }
         }
     });
 })();

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Chat Preview
 // @namespace    http://tampermonkey.net/
-// @version      0.1.5
+// @version      0.1.6
 // @description  Preivew SE chat before posting!
 // @author       You
 // @match        *://chat.stackexchange.com/rooms/*
@@ -31,6 +31,10 @@
                 var usr_name = replyTo.parent().parent().find(".tiny-signature").find(".username").text();
                 wrap_left = `<b>${usr_name}</b><br><b style='color:gray;'>${replyTo.text()}</b><br><br>`;
                 s = taco.caretReply.getMessageText(s);
+                if(s=="*"){
+                    s="";
+                    wrap_right="<span class='stars vote-count-container'><span class='img vote'></span><span class='times'>+1</span></span>";
+                }
             }
         }
         if(s.match(/(gif|png|jpg|jpeg|bmp|svg)$/i)){
