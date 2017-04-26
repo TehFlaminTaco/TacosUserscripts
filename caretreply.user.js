@@ -143,16 +143,6 @@
             }
 
             input.val(msg.getAttribute("id").replace(/message-/, ":") + " " + caretReply.getMessageText(text));
-            /*
-            var text = input.val().replace(/^\^\*(\d+)/, function(a,b){return ("^").repeat(Number(b));});
-            var carets = text.match(/^\^+/);
-            if(!carets){
-                return;
-            }
-            var carets = carets[0];
-
-            input.val(text.replace(/^\^+/,":"+taco_storedMessages[taco_storedMessages.length - carets.length].getAttribute("id").replace(/message-/,"")+" "));
-            */
         }
     });
 })();
