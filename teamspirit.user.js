@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Team Spirit!
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.3
 // @description  Actually hate eachother for no reason.
 // @author       Teh Flamin' Taco
 // @match        *://*chat.stackexchange.com/*
