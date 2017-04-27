@@ -44,7 +44,7 @@
 				var links = $(b).find('a');
 				var jLink = $(links[links.length-1]);
 				if(!jLink.find(".stars").length){
-					jLink.prepend(`<span class='stars vote-count-container'><span class='img vote' style='background-image: url(${links[links.length-1].getAttribute("href").match(/users\/(\d+)/)[1]%2==0 ? "http://i.imgur.com/6RZ23Ak.png' : 'http://i.imgur.com/6jKoAti.png" : "http://i.imgur.com/6jKoAti.png"}) !important'></span></span>`);
+					jLink.prepend(`<span class='stars vote-count-container'><span class='img vote' style='background-image: url(${links[links.length-1].getAttribute("href").match(/users\/(\d+)/)[1]%2==0 ? 'http://i.imgur.com/6RZ23Ak.png' : 'http://i.imgur.com/6jKoAti.png'}) !important'></span></span>`);
 				}
 			}
 		)
