@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         Team Spirit!
 // @namespace    http://tampermonkey.net/
-// @version      1.4
-// @description  Actually hate eachother for no reason.
+// @version      1.5
+// @description  Actually hate each other for no reason.
 // @author       Teh Flamin' Taco
+// @contributer  Mego
 // @include *://chat.meta.stackoverflow.com/rooms/*
 // @include *://chat.meta.stackexchange.com/rooms/*
 // @include *://chat.stackexchange.com/rooms/*
@@ -36,7 +37,7 @@
 		$(".username").each((a, b) => {
 			var jB = $(b);
 			if (!jB.find(".stars").length) {
-				jB.prepend(`<span class='stars vote-count-container'><span class='img vote' style='background-image: url(${getHref(jB).match(/\/users\/(\d+)/)[1]%2==0 ? 'http://i.imgur.com/6RZ23Ak.png' : 'http://i.imgur.com/6jKoAti.png'}) !important'></span></span>`);
+				jB.prepend(`<span class='stars vote-count-container'><span class='img vote' style='background-image: url(${getHref(jB).match(/\/users\/(\d+)/)[1]%2===0 ? 'http://i.imgur.com/6RZ23Ak.png' : 'http://i.imgur.com/6jKoAti.png'}) !important'></span></span>`);
 			}
 		});
 
@@ -46,16 +47,16 @@
 				var links = $(b).find('a');
 				var jLink = $(links[links.length-1]);
 				if(!jLink.find(".stars").length){
-					jLink.prepend(`<span class='stars vote-count-container'><span class='img vote' style='background-image: url(${links[links.length-1].getAttribute("href").match(/users\/(\d+)/)[1]%2==0 ? 'http://i.imgur.com/6RZ23Ak.png' : 'http://i.imgur.com/6jKoAti.png'}) !important'></span></span>`);
+					jLink.prepend(`<span class='stars vote-count-container'><span class='img vote' style='background-image: url(${links[links.length-1].getAttribute("href").match(/users\/(\d+)/)[1]%2===0 ? 'http://i.imgur.com/6RZ23Ak.png' : 'http://i.imgur.com/6jKoAti.png'}) !important'></span></span>`);
 				}
-			);
+            });
 
 		var x = $(".user-container");
 		var cRed = 0;
 		var cBlue = 0;
 		for (var i = 0; i < x.length; i++) {
 			try {
-				if (x[i].getAttribute("class").match(/\d+/)[0] % 2 == 0)
+				if (x[i].getAttribute("class").match(/\d+/)[0] % 2 === 0)
 					cRed++;
 				else
 					cBlue++;
@@ -68,14 +69,15 @@
 				(a, b) => {
 					var votes = $(b).find(".vote-count-container .times").text();
 					var links = $(b).find('a');
-					if (votes == "")
+					if (votes === "")
 						votes = 1;
-					if (links[links.length - 1].getAttribute("href").match(/users\/(\d+)/)[1] % 2 == 0)
+					if (links[links.length - 1].getAttribute("href").match(/users\/(\d+)/)[1] % 2 === 0)
 						cRed += votes * 10;
 					else
 						cBlue += votes * 10;
 				}
 			);
+
 		var total = cRed + cBlue;
 
 		var redPercent = Math.ceil((cRed / total) * 100);
