@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Team Spirit!
 // @namespace    http://tampermonkey.net/
-// @version      1.5.1
+// @version      1.5.3
 // @description  Actually hate each other for no reason.
 // @author       Teh Flamin' Taco
 // @contributer  Mego
@@ -22,15 +22,6 @@
 	function getHref(jEle) {
 		return jEle.attr("href") || getHref(jEle.parent());
 	}
-
-	$("head").append(`<style>
-.bluestar{
-	background: url(http://a-ta.co/content/bluestar.png)
-}
-.redstar{
-	background: url(http://a-ta.co/content/redstar.png)
-}
-</style>`);
 
 	setInterval(function() {
 
