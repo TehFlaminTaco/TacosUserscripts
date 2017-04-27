@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Team Spirit!
 // @namespace    http://tampermonkey.net/
-// @version      1.5.4
+// @version      1.5.5
 // @description  Actually hate each other for no reason.
 // @author       Teh Flamin' Taco
 // @contributor  Mego
@@ -46,15 +46,6 @@
 		var x = $(".user-container");
 		var cRed = 0;
 		var cBlue = 0;
-		for (var i = 0; i < x.length; i++) {
-			try {
-				if (x[i].getAttribute("class").match(/\d+/)[0] % 2 === 0)
-					cRed++;
-				else
-					cBlue++;
-			}
-			catch (e) {}
-		}
 
 		$(".votesummary .collapsible").children()
 			.each(
@@ -64,9 +55,9 @@
 					if (votes === "")
 						votes = 1;
 					if (links[links.length - 1].getAttribute("href").match(/users\/(\d+)/)[1] % 2 === 0)
-						cRed += votes * 10;
+						cRed += Number(votes);
 					else
-						cBlue += votes * 10;
+						cBlue += Number(votes);
 				}
 			);
 
