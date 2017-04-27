@@ -4,8 +4,13 @@
 // @version      1.0.5
 // @description  Automatically reply to messages by using ^Message
 // @author       You
-// @match        *://*chat.stackexchange.com/*
-// @match        *://*chat.stackoverflow.com/*
+// @include *://chat.meta.stackoverflow.com/rooms/*
+// @include *://chat.meta.stackexchange.com/rooms/*
+// @include *://chat.stackexchange.com/rooms/*
+// @include *://chat.stackoverflow.com/rooms/*
+// @include *://chat.askubuntu.com/rooms/*
+// @include *://chat.serverfault.com/rooms/*
+// @run-at document-end
 // @grant        none
 // ==/UserScript==
 

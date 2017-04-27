@@ -4,8 +4,13 @@
 // @version      1.4
 // @description  Actually hate eachother for no reason.
 // @author       Teh Flamin' Taco
-// @match        *://*chat.stackexchange.com/*
-// @match        *://*chat.stackoverflow.com/*
+// @include *://chat.meta.stackoverflow.com/rooms/*
+// @include *://chat.meta.stackexchange.com/rooms/*
+// @include *://chat.stackexchange.com/rooms/*
+// @include *://chat.stackoverflow.com/rooms/*
+// @include *://chat.askubuntu.com/rooms/*
+// @include *://chat.serverfault.com/rooms/*
+// @run-at document-end
 // @grant        none
 // ==/UserScript==
 
@@ -36,13 +41,12 @@
 		});
 
 		$(".votesummary .collapsible").children()
-			.each(
-				(a, b) => {
-					var links = $(b).find('a');
-					var jLink = $(links[links.length - 1]);
-					if (!jLink.find(".stars").length) {
-						jLink.prepend(`<span class='stars vote-count-container'><span class='img vote' style='background-image: url(${links[links.length-1].getAttribute("href").match(/users\/(\d+)/)[1]%2==0 ? "http://i.imgur.com/6RZ23Ak.png' : 'http://i.imgur.com/6jKoAti.png" : "http://i.imgur.com/6jKoAti.png"}) !important'></span></span>`);
-					}
+		.each(
+			(a,b)=>{
+				var links = $(b).find('a');
+				var jLink = $(links[links.length-1]);
+				if(!jLink.find(".stars").length){
+					jLink.prepend(`<span class='stars vote-count-container'><span class='img vote' style='background-image: url(${links[links.length-1].getAttribute("href").match(/users\/(\d+)/)[1]%2==0 ? 'http://i.imgur.com/6RZ23Ak.png' : 'http://i.imgur.com/6jKoAti.png'}) !important'></span></span>`);
 				}
 			);
 

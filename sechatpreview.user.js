@@ -4,8 +4,13 @@
 // @version      0.1.7
 // @description  Preivew SE chat before posting!
 // @author       You
-// @match        *://chat.stackexchange.com/rooms/*
-// @match        *://chat.stackoverflow.com/rooms/*
+// @include *://chat.meta.stackoverflow.com/rooms/*
+// @include *://chat.meta.stackexchange.com/rooms/*
+// @include *://chat.stackexchange.com/rooms/*
+// @include *://chat.stackoverflow.com/rooms/*
+// @include *://chat.askubuntu.com/rooms/*
+// @include *://chat.serverfault.com/rooms/*
+// @run-at document-end
 // @grant        none
 // ==/UserScript==
 
