@@ -14,17 +14,17 @@
 // @grant        none
 // ==/UserScript==
 
+/* global $ */
 (function() {
     'use strict';
-    // Your code here...
-    setInterval(function(){
-    var x=$("div:contains('strawpoll.me')");
-    for(var i=0; i<x.length; i++){
-        var matches = x[i].textContent.match(/^(https?:\/\/)?(www\.)?strawpoll.me\/(\d+)$/gi);
-        if(matches){
-            console.log(matches);
-            x[i].innerHTML = "<center><iframe src=\"https://www.strawpoll.me/embed_1/"+matches[0].match(/\d+/)[0]+"\" style=\"width:700px;height:320px;border:0;\">Loading poll...</iframe></center>";
+    setInterval(function() {
+        var x = $("div:contains('strawpoll.me')");
+        for (var i = 0; i < x.length; i++) {
+            var matches = x[i].textContent.match(/^(https?:\/\/)?(www\.)?strawpoll.me\/(\d+)$/gi);
+            if (matches) {
+                console.log(matches);
+                x[i].innerHTML = "<center><iframe src=\"https://www.strawpoll.me/embed_1/" + matches[0].match(/\d+/)[0] + "\" style=\"width:700px;height:320px;border:0;\">Loading poll...</iframe></center>";
+            }
         }
-    }},500);
+    }, 500);
 })();
-
