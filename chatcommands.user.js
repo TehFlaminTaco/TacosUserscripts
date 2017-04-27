@@ -4,8 +4,13 @@
 // @version      0.2.4
 // @description  Add some simple ascii art commands.
 // @author       Teh Flamin' Taco
-// @match        *://*chat.stackexchange.com/*
-// @match        *://*chat.stackoverflow.com/*
+// @include *://chat.meta.stackoverflow.com/rooms/*
+// @include *://chat.meta.stackexchange.com/rooms/*
+// @include *://chat.stackexchange.com/rooms/*
+// @include *://chat.stackoverflow.com/rooms/*
+// @include *://chat.askubuntu.com/rooms/*
+// @include *://chat.serverfault.com/rooms/*
+// @run-at document-end
 // @grant        none
 // ==/UserScript==
 
