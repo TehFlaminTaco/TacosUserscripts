@@ -1,16 +1,11 @@
 // ==UserScript==
 // @name         Team Spirit!
 // @namespace    http://tampermonkey.net/
-// @version      1.5.5
+// @version      1.5.6
 // @description  Actually hate each other for no reason.
 // @author       Teh Flamin' Taco
 // @contributor  Mego
-// @include *://chat.meta.stackoverflow.com/rooms/*
-// @include *://chat.meta.stackexchange.com/rooms/*
-// @include *://chat.stackexchange.com/rooms/*
-// @include *://chat.stackoverflow.com/rooms/*
-// @include *://chat.askubuntu.com/rooms/*
-// @include *://chat.serverfault.com/rooms/*
+// @include *://chat.stackexchange.com/rooms/240/the-nineteenth-byte*
 // @run-at document-end
 // @grant        none
 // @updateURL   https://rawgit.com/TehFlaminTaco/TacosUserscripts/blob/master/teamspirit.user.js
