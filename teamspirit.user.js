@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Team Spirit!
 // @namespace    http://tampermonkey.net/
-// @version      1.5.3
+// @version      1.5.4
 // @description  Actually hate each other for no reason.
 // @author       Teh Flamin' Taco
-// @contributer  Mego
+// @contributor  Mego
 // @include *://chat.meta.stackoverflow.com/rooms/*
 // @include *://chat.meta.stackexchange.com/rooms/*
 // @include *://chat.stackexchange.com/rooms/*
@@ -13,6 +13,7 @@
 // @include *://chat.serverfault.com/rooms/*
 // @run-at document-end
 // @grant        none
+// @updateURL   https://rawgit.com/TehFlaminTaco/TacosUserscripts/blob/master/teamspirit.user.js
 // ==/UserScript==
 
 /* global $ */
@@ -73,6 +74,7 @@
 
 		var redPercent = Math.ceil((cRed / total) * 100);
 		var bluPercent = Math.floor((cBlue / total) * 100);
+        $("#scoreholder").attr("title", "Red: " + cRed + ", Blue: " + cBlue);
 		$("#redscore").css({
 			width: `${redPercent}%`
 		});
