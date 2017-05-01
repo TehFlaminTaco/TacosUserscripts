@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Team Spirit!
 // @namespace    http://tampermonkey.net/
-// @version      1.5.6
+// @version      1.6.0
 // @description  Actually hate each other for no reason.
 // @author       Teh Flamin' Taco
 // @contributor  Mego
@@ -61,6 +61,8 @@
 		var redPercent = Math.ceil((cRed / total) * 100);
 		var bluPercent = Math.floor((cBlue / total) * 100);
         $("#scoreholder").attr("title", "Red: " + cRed + ", Blue: " + cBlue);
+        $("#red_score_text").text(cRed);
+        $("#blue_score_text").text(cBlue);
 		$("#redscore").css({
 			width: `${redPercent}%`
 		});
@@ -70,6 +72,7 @@
 	}, 2000);
 
 	$(".chat-input").append('<div id="scoreholder"><div id="redscore" class="scoreholder"></div><div id="bluescore" class="scoreholder"></div></div>');
+	$("#chat-buttons").append(`<div id="scores"><span id="red_score_text">?</span>/<span id="blue_score_text">?</span></div>`);
 
 	$("head").append(`<style>
 #scoreholder{
@@ -92,6 +95,26 @@
 #bluescore{
 	background-color:#00F;
 	width:50%;
+}
+
+#scores{
+  position:absolute;
+  background-color:#FFFFFF;
+  border-radius:8px;
+  padding: 0px 8px;
+  font-size:16pt;
+  font-family:Century Gothic;
+  overflow:hidden;
+  transition: all linear 0.5s;
+  text-align:center;
+}
+
+#red_score_text{
+  color:#F00;
+}
+
+#blue_score_text{
+  color:#00F;
 }
 </style>`);
 
