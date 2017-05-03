@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Team Spirit!
 // @namespace    http://tampermonkey.net/
-// @version      1.6.0
+// @version      1.6.1
 // @description  Actually hate each other for no reason.
 // @author       Teh Flamin' Taco
 // @contributor  Mego
@@ -26,11 +26,11 @@ setInterval(function() {
         if($(b).parent(".user-popup").length) {
             var href = $(b).parent(".user-popup").children("a");
             if (!$(b).find(".stars").length) {
-                jB.prepend(`<span class='stars vote-count-container'><span class='img vote' style='background-image: url(${($(href).attr("href").match(/\/users\/(\d+)/)||["","0"])[1]%2===0 ? 'http://i.imgur.com/6RZ23Ak.png' : 'http://i.imgur.com/6jKoAti.png'}) !important; background-position:0px 0px; background-size:10px 10px !important;'></span></span>`);
+                jB.prepend(`<span class='stars vote-count-container'><span class='img vote' style='background-image: url(${($(href).attr("href").match(/\/users\/-?(\d+)/)||["","0"])[1]%2===0 ? 'http://i.imgur.com/6RZ23Ak.png' : 'http://i.imgur.com/6jKoAti.png'}) !important; background-position:0px 0px; background-size:10px 10px !important;'></span></span>`);
             }
         } else {
             if (!jB.find(".stars").length) {
-                jB.prepend(`<span class='stars vote-count-container'><span class='img vote' style='background-image: url(${(getHref(jB).match(/\/users\/(\d+)/)||["","0"])[1]%2===0 ? 'http://i.imgur.com/6RZ23Ak.png' : 'http://i.imgur.com/6jKoAti.png'}) !important; background-position:0px 0px; background-size:10px 10px !important;'></span></span>`);
+                jB.prepend(`<span class='stars vote-count-container'><span class='img vote' style='background-image: url(${(getHref(jB).match(/\/users\/-?(\d+)/)||["","0"])[1]%2===0 ? 'http://i.imgur.com/6RZ23Ak.png' : 'http://i.imgur.com/6jKoAti.png'}) !important; background-position:0px 0px; background-size:10px 10px !important;'></span></span>`);
             }
         }
     });
@@ -41,7 +41,10 @@ setInterval(function() {
 			var links = $(b).find('a');
 			var jLink = $(links[links.length-1]);
 			if(!jLink.find(".stars").length){
-				jLink.prepend(`<span class='stars vote-count-container'><span class='img vote' style='background-image: url(${links[links.length-1].getAttribute("href").match(/users\/(\d+)/)[1]%2===0 ? 'http://i.imgur.com/6RZ23Ak.png' : 'http://i.imgur.com/6jKoAti.png'}) !important; background-position:0px 0px; background-size:10px 10px !important;'></span></span>`);
+                var match = links[links.length - 1].getAttribute("href").match(/users\/(\d+)/);
+                if(!match)
+                    return;
+				jLink.prepend(`<span class='stars vote-count-container'><span class='img vote' style='background-image: url(${match[1]%2===0 ? 'http://i.imgur.com/6RZ23Ak.png' : 'http://i.imgur.com/6jKoAti.png'}) !important; background-position:0px 0px; background-size:10px 10px !important;'></span></span>`);
 			}
         });
 
@@ -54,9 +57,12 @@ setInterval(function() {
 			(a, b) => {
 				var votes = $(b).find(".vote-count-container .times").text();
 				var links = $(b).find('a');
+                var match = links[links.length - 1].getAttribute("href").match(/users\/(\d+)/);
+                if(!match)
+                    return;
 				if (votes === "")
 					votes = 1;
-				if (links[links.length - 1].getAttribute("href").match(/users\/(\d+)/)[1] % 2 === 0)
+				if (match[1] % 2 === 0)
 					cRed += Number(votes);
 				else
 					cBlue += Number(votes);

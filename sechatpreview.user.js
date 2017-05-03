@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      0.1.7
 // @description  Preivew SE chat before posting!
-// @author       You
+// @author       The Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
 // @include *://chat.meta.stackexchange.com/rooms/*
 // @include *://chat.stackexchange.com/rooms/*
