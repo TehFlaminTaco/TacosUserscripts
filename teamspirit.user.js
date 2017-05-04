@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Team Spirit!
 // @namespace    http://tampermonkey.net/
-// @version      1.7
+// @version      1.7.1
 // @description  Actually hate each other for no reason.
 // @author       Teh Flamin' Taco
 // @contributor  Mego
@@ -35,28 +35,24 @@ setInterval(function() {
         }
     });
 
-	var x = $(".user-container");
 	var cRed = 0;
 	var cBlue = 0;
-
 
 	$(".votesummary .collapsible").children()
 	.each(
 		(a,b)=>{
 			var links = $(b).find('a');
 			var jLink = $(links[links.length-1]);
+			var match = jLink.attr("href").match(/users\/(\d+)/);
+			if(!match)
+                return;
+
 			if(!jLink.find(".stars").length){
-                var match = links[links.length - 1].getAttribute("href").match(/users\/(\d+)/);
-                if(!match)
-                    return;
 				jLink.prepend(`<span class='stars vote-count-container'><span class='img vote' style='background-image: url(${match[1]%2===0 ? 'http://i.imgur.com/6RZ23Ak.png' : 'http://i.imgur.com/6jKoAti.png'}) !important; background-position:0px 0px; background-size:10px 10px !important;'></span></span>`);
 			}
 
 			var votes = $(b).find(".vote-count-container .times").text();
 			var valid = !$(b).find(".owner-star").length;
-            var match = jLink.attr("href").match(/users\/(\d+)/);
-            if(!match)
-                return;
             if(!valid)
             	return;
 			if (votes === "")
@@ -71,7 +67,7 @@ setInterval(function() {
 	var total = cRed + cBlue;
 
 	var redPercent = Math.ceil((cRed / total) * 100);
-	var bluPercent = Math.floor((cBlue / total) * 100);
+	var bluPercent = 100 - redPercent;
     $("#scoreholder").attr("title", "Red: " + cRed + ", Blue: " + cBlue);
     $("#red_score_text").text(cRed);
     $("#blue_score_text").text(cBlue);
