@@ -12,25 +12,36 @@
 // @include *://chat.serverfault.com/rooms/*
 // @run-at document-end
 // @grant        none
+// @updateURL    https://github.com/TehFlaminTaco/TacosUserscripts/raw/master/chatformatting.user.js
 // ==/UserScript==
 
 (function() {
     'use strict';
 
     // Your code here...
-    function toggle_formatting(str){
+    function toggle_formatting(event, tar, str){
+        if(event.key!=tar)
+            return;
+        event.preventDefault();
+
         var inp = document.getElementById('input');
         var start = inp.selectionStart;
         var end = inp.selectionEnd;
         if(start == end){
-            inp.value = input.value.substring(0, start) + str + input.value.substring(start);
+            if(inp.value.substr(start, str.length) == str){
+                inp.selectionStart = start + str.length;
+                inp.selectionEnd = end + str.length;
+                return;
+            }
+
+            inp.value = inp.value.substring(0, start) + str + inp.value.substring(start) + (inp.value.substr(-str.length)!=str ? str : "");
             inp.selectionStart = start + str.length;
-            inp.selectionEnd = start + str.length;
+            inp.selectionEnd = end + str.length;
             return;
         }
-        var first_chunk = input.value.substring(0,start);
-        var middle = input.value.substring(start,end);
-        var end_chunk = input.value.substring(end);
+        var first_chunk = inp.value.substring(0,start);
+        var middle = inp.value.substring(start,end);
+        var end_chunk = inp.value.substring(end);
 
         var mid_left = middle.substr(0,str.length);
         var mid_right = middle.substr(-str.length);
@@ -50,20 +61,42 @@
         inp.selectionEnd = first_chunk.length + middle.length;
     }
 
-    function add_bracket(left, right){
+    function add_bracket(event, left, right){
         var inp = document.getElementById('input');
         var start = inp.selectionStart;
         var end = inp.selectionEnd;
+
+        if(event.key==right && start==end){
+            if(inp.value.substr(start, right.length) == right){
+                event.preventDefault();
+
+                inp.selectionStart = start + right.length;
+                inp.selectionEnd = end + right.length;
+            }
+            if(right != left)
+                return;
+        }
+        if(event.key!=left)
+            return;
+
         if(start == end){
-            inp.value = input.value.substring(0, start) + left + input.value.substring(start);
-            inp.selectionStart = start + left.length;
-            inp.selectionEnd = start + left.length;
+            event.preventDefault();
+            if(inp.value.substr(start, left.length) == left){
+                inp.selectionStart = start + left.length;
+                inp.selectionEnd = end + left.length;
+            }else{
+                inp.value = inp.value.substring(0, start) + left  + (start==inp.value.length || inp.value.substr(-right.length)!=right ? right : "") + inp.value.substring(start);
+                inp.selectionStart = start + left.length;
+                inp.selectionEnd = start + left.length;
+            }
             return;
         }
 
-        var first_chunk = input.value.substring(0,start);
-        var middle = input.value.substring(start,end);
-        var end_chunk = input.value.substring(end);
+        event.preventDefault();
+
+        var first_chunk = inp.value.substring(0,start);
+        var middle = inp.value.substring(start,end);
+        var end_chunk = inp.value.substring(end);
 
         middle = left + middle + right;
 
@@ -74,59 +107,18 @@
 
     $("#input").keydown(function(event){
         if(event.ctrlKey){
-            switch(event.key){
-                case 'b':
-                    event.preventDefault();
-                    toggle_formatting('**');
-                    break;
-                case 'i':
-                    event.preventDefault();
-                    toggle_formatting('_');
-                    break;
-                case '`':
-                    event.preventDefault();
-                    toggle_formatting('`');
-                    break;
-                case 'l':
-                    event.preventDefault();
-                    toggle_formatting('$');
-                    break;
-                case 'L':
-                    event.preventDefault();
-                    toggle_formatting('$$');
-                    break;
-                default:
-                    break;
-            }
+            toggle_formatting(event, 'b', '**');
+            toggle_formatting(event, 'i', '_');
+            toggle_formatting(event, '`', '`');
+            toggle_formatting(event, 'l', '$');
+            toggle_formatting(event, 'L', '$$');
         }else{
-            switch(event.key){
-                case '(':
-                    event.preventDefault();
-                    add_bracket('(', ')');
-                    break;
-                case '{':
-                    event.preventDefault();
-                    add_bracket('{', '}');
-                    break;
-                case '[':
-                    event.preventDefault();
-                    add_bracket('[', ']');
-                    break;
-                case '<':
-                    event.preventDefault();
-                    add_bracket('<', '>');
-                    break;
-                case '\'':
-                    event.preventDefault();
-                    add_bracket('\'', '\'');
-                    break;
-                case '"':
-                    event.preventDefault();
-                    add_bracket('"', '"');
-                    break;
-                default:
-                    break;
-            }
+            add_bracket(event, '(', ')');
+            add_bracket(event, '{', '}');
+            add_bracket(event, '[', ']');
+            add_bracket(event, '<', '>');
+            add_bracket(event, '\'', '\'');
+            add_bracket(event, '"', '"');
         }
     });
 })();
