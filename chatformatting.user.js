@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Chat Formatting
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Had hotkeys like Ctrl-b, Ctrl-i, and things to chat.
 // @author       The Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -117,7 +117,6 @@
             add_bracket(event, '{', '}');
             add_bracket(event, '[', ']');
             add_bracket(event, '<', '>');
-            add_bracket(event, '\'', '\'');
             add_bracket(event, '"', '"');
         }
     });
