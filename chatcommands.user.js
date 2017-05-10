@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Chat Commands
 // @namespace    http://tampermonkey.net/
-// @version      0.2.6
+// @version      0.2.7
 // @description  Add some simple ascii art commands.
 // @author       Teh Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -10,6 +10,7 @@
 // @include *://chat.stackoverflow.com/rooms/*
 // @include *://chat.askubuntu.com/rooms/*
 // @include *://chat.serverfault.com/rooms/*
+// @updateURL   https://rawgit.com/TehFlaminTaco/TacosUserscripts/blob/master/chatcommands.user.js
 // @run-at document-end
 // @grant        none
 // ==/UserScript==
@@ -28,11 +29,8 @@
         why: "ლ(ಠ益ಠლ)",
         cool: "(▀̿Ĺ̯▀̿ ̿)",
         lenny: "( ͡° ͜ʖ ͡°)",
-        ["\\$$(.+?)\\$"]: function(_, s) {
-            return "https://a-ta.co/mathjax/$$!" + btoa(s) + ".svg";
-        },
-        ["\\$(.+?)\\$"]: function(_, s) {
-            return "https://a-ta.co/mathjax/$!" + btoa(s) + ".svg";
+        ["\\$(\\$?)(.+?)\\$"]: function(_, a, s) {
+            return "https://a-ta.co/mathjax/"+ encodeURIComponent(a) + "!" + btoa(s) + ".svg";
         }
     };
     setInterval(function() {
