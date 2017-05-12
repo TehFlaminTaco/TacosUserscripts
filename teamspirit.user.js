@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Team Spirit!
 // @namespace    http://tampermonkey.net/
-// @version      1.7.2
+// @version      1.7.3
 // @description  Actually hate each other for no reason.
 // @author       Teh Flamin' Taco
 // @contributor  Mego
@@ -122,6 +122,14 @@ $("head").append(`<style>
 
 #blue_score_text{
   color:#00F;
+}
+
+.signature{
+	width:15% !important;
+}
+
+.messages{
+	width:82% !important;
 }
 </style>`);
 
