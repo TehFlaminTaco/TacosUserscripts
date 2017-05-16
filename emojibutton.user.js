@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Emoji Button
 // @namespace    http://tampermonkey.net/
-// @version      0.0.1
+// @version      0.0.2
 // @description  Add a button to push to do the Emoji Thing!
 // @author       Teh Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -46,6 +46,17 @@
 .emoji{
   cursor:pointer;
   float:left;
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+.emoji-category{
+  float:left;
+  width:100%;
 }
 
 #emoji-search{
@@ -78,9 +89,11 @@
 		innerPanel.innerHTML = "";
 		var pattern = new RegExp(search.value, "i");
 		for(var category in emoji){
-			innerPanel.append(document.createElement("br"));
-			innerPanel.append(category);
-			innerPanel.append(document.createElement("br"));
+			var cat = document.createElement("div");
+			cat.setAttribute("class","emoji-category");
+			cat.append(category);
+			cat.append(document.createElement("br"));
+			var found_emoj = false;
 			for(var i=0; i < emoji[category].length; i++){
 				var target = emoji[category][i];
 				if(pattern.test(target.aliases.concat(target.tags).concat(target.description).join(" "))){
@@ -88,8 +101,12 @@
 					emoj.setAttribute("class", "emoji");
 					emoj.setAttribute("title", target.description);
 					emoj.innerHTML = target.emoji;
-					innerPanel.append(emoj);
+					cat.append(emoj);
+					found_emoj = true;
 				}
+			}
+			if(found_emoj){
+				innerPanel.append(cat);
 			}
 		}
 		$(".emoji").click((tar)=>document.getElementById("input").value += tar.target.innerHTML);
@@ -103,7 +120,11 @@
 	var toggle_button = document.createElement("span");
 	toggle_button.setAttribute("id", "emoji-button");
 	toggle_button.innerHTML = "😀";
-	toggle_button.onclick = ()=>jPanel.css({display:"block"});
+	toggle_button.onclick = ()=>{
+		jPanel.css({display:"block"});
+		search.focus();
+		search.select();
+	}
 	window.onclick = (tar)=>{
 		if (!((tar.target.getAttribute("class")||"").match("^emoji") || (tar.target.getAttribute("id")||"").match("^emoji"))){
 			jPanel.css({display: "none"});
