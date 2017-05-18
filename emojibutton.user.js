@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Emoji Button
 // @namespace    http://tampermonkey.net/
-// @version      0.0.2
+// @version      0.0.3
 // @description  Add a button to push to do the Emoji Thing!
 // @author       Teh Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -111,7 +111,6 @@
 		}
 		$(".emoji").click((tar)=>document.getElementById("input").value += tar.target.innerHTML);
 	}
-	search.onkeyup = updateEmoji
 
 	document.getElementById("chat-buttons").prepend(ePanel);
 	jPanel = $(ePanel)
@@ -125,12 +124,37 @@
 		search.focus();
 		search.select();
 	}
-	window.onclick = (tar)=>{
+	$(window).click((tar)=>{
 		if (!((tar.target.getAttribute("class")||"").match("^emoji") || (tar.target.getAttribute("id")||"").match("^emoji"))){
 			jPanel.css({display: "none"});
 		}
-	}
+	});
 
 	document.getElementById("chat-buttons").prepend(toggle_button);
 	updateEmoji();
+    $("#input").keydown((event)=>{
+        if(event.ctrlKey && event.key=="e"){
+            event.preventDefault();
+            toggle_button.onclick();
+        }
+    });
+    
+    search.onkeyup = (evnt)=>{
+        if(evnt.key == "Enter"){
+            if(search.value==""){
+                jPanel.css({display: "none"});
+                $("#input").focus();
+                return;
+            }
+            var emoj = $(".emoji")[0];
+            if(emoj){
+                emoj.click();
+                search.value = "";
+                jPanel.css({display: "none"});
+                $("#input").focus();
+            }
+        }else{
+            updateEmoji();
+        }
+    }
 })();
