@@ -35,7 +35,10 @@
 		// Le tréma
 		'e"' : "ë",
 		'i"' : "ï",
-		'u"' : "ü"
+		'u"' : "ü",
+		// Qoutes
+		"<<" : "«",
+		">>" : "»"
 	}
 
 	setInterval(function(){
