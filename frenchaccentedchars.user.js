@@ -43,7 +43,7 @@
 
 	setInterval(function(){
 		var inp = $("#input");
-		for(code in combos){
+		for(var code in combos){
 			var cd = `(${code[0]})(${code[1]})`;
 			inp.val(inp.val().replace(
 					RegExp(
@@ -53,7 +53,7 @@
 					(_,a,b)=> a + String.fromCharCode(0x200D) + b
 				));
 		}
-		for(code in combos){
+		for(var code in combos){
 			var cd = `(${code[0]})(${code[1]})`;
 			inp.val(inp.val().replace(
 					RegExp(
