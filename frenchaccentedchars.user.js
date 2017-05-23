@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         French Accented Characters
 // @namespace    http://tampermonkey.net/
-// @version      0.0.5
+// @version      0.0.6
 // @description  To allow typing of french characters.
 // @author       The Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -19,19 +19,19 @@
     'use strict';
 	var combos = {
 		// L'accent aigu
-		"e'" : "é",
+		"e/" : "é",
 		// L'accent grave
 		"a`" : "à",
 		"e`" : "è",
 		"u`" : "ù",
 		// L'accent circonflexe
-		"a^" : "â",
-		"e^" : "ê",
-		"i^" : "î",
-		"o^" : "ô",
-		"u^" : "û",
+		"a\\^" : "â",
+		"e\\^" : "ê",
+		"i\\^" : "î",
+		"o\\^" : "ô",
+		"u\\^" : "û",
 		// La cédille
-		"c," : "ç",
+		"c5" : "ç",
 		// Le tréma
 		'e"' : "ë",
 		'i"' : "ï",
@@ -39,12 +39,12 @@
 		// Qoutes
 		"<<" : "«",
 		">>" : "»"
-	}
+	};
 
 	setInterval(function(){
 		var inp = $("#input");
 		for(var code in combos){
-			var cd = `(${code[0]})(${code[1]})`;
+			var cd = `(${code[0]})(${code.substr(1)})`;
 			inp.val(inp.val().replace(
 					RegExp(
 							"\\\\" + cd,
@@ -54,7 +54,7 @@
 				));
 		}
 		for(var code in combos){
-			var cd = `(${code[0]})(${code[1]})`;
+			var cd = `(${code[0]})(${code.substr(1)})`;
 			inp.val(inp.val().replace(
 					RegExp(
 							cd,
@@ -63,5 +63,5 @@
 					(_,a,b) => a==a.toUpperCase() ? combos[code].toUpperCase() : combos[code]
 				));
 		}
-	}, 100)
+	}, 100);
 })();
