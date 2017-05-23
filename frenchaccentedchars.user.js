@@ -48,7 +48,7 @@
 			inp.val(inp.val().replace(
 					RegExp(
 							"\\\\" + cd,
-							"i"
+							"ig"
 						),
 					(_,a,b)=> a + String.fromCharCode(0x200D) + b
 				));
@@ -58,7 +58,7 @@
 			inp.val(inp.val().replace(
 					RegExp(
 							cd,
-							"i"
+							"ig"
 						),
 					(_,a,b) => a==a.toUpperCase() ? combos[code].toUpperCase() : combos[code]
 				));
