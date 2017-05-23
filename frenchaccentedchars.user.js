@@ -19,7 +19,7 @@
     'use strict';
 	var combos = {
 		// L'accent aigu
-		"e/" : "é",
+		"e//" : "é",
 		// L'accent grave
 		"a`" : "à",
 		"e`" : "è",
@@ -32,13 +32,14 @@
 		"u\\^" : "û",
 		// La cédille
 		"c5" : "ç",
+		"c2" : "ç",
 		// Le tréma
 		'e"' : "ë",
 		'i"' : "ï",
 		'u"' : "ü",
 		// Qoutes
-		"<<" : "«",
-		">>" : "»"
+		"<-<" : "«",
+		">->" : "»"
 	};
 
 	setInterval(function(){
