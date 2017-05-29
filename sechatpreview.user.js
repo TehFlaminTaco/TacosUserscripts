@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Chat Preview
 // @namespace    http://tampermonkey.net/
-// @version      0.1.8
+// @version      0.1.9
 // @description  Preivew SE chat before posting!
 // @author       The Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -24,7 +24,7 @@
     taco.installedScripts.push("chatPreview");
     var chatPreview = taco.chatPreview = {};
 
-    chatPreview.markdownTaco = function(s) {
+    chatPreview.markdownTaco = function(chat_prev, s) {
         var wrap_left = "";
         var wrap_right = "";
 
@@ -43,8 +43,11 @@
                 if(taco.caretReply.sedMatch){
                     var match = taco.caretReply.sedMatch(s);
                     if(match){
-                        wrap_right += "<span style='font-size:20px;'>&#x270D;</span>";
-                        s = replyTo.find(".content").text().replace(new RegExp(match[0], match[2]), match[1]);
+                        $.get("/message/" + msgId + "?plain=true", function(e) {
+                            wrap_right += "<span style='font-size:20px;'>&#x270D;</span>";
+                            chat_prev.innerHTML = wrap_left + e.replace(new RegExp(match[0], match[2]), match[1]) + wrap_right;
+                        });
+                        return;
                     }
                 }
             }
@@ -52,7 +55,7 @@
         if (s.match(/(gif|png|jpg|jpeg|bmp|svg)$/i)) {
             return "<img src=" + s + " />";
         }
-        return wrap_left + markdownMini(s) + wrap_right;
+        chat_prev.innerHTML = wrap_left + markdownMini(s) + wrap_right;
     };
 
     $("#main").append('<div id="chat-preview" style="position:fixed;bottom:80px;margin-bottom:12px;border:solid;border-radius:4px;background:white;padding:4px;display:none"></div>');
@@ -71,7 +74,7 @@
             stored = S;
             timer = setTimeout(function() {
                 timer = -1;
-                chat_prev.innerHTML = chatPreview.markdownTaco(S);
+                chatPreview.markdownTaco(chat_prev, S);
             }, 500);
         }
     }, 30);

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Caret Reply
 // @namespace    http://tampermonkey.net/
-// @version      1.1.0
+// @version      1.1.1
 // @description  Automatically reply to messages by using ^Message
 // @author       The Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -204,12 +204,10 @@
             var txt = caretReply.getMessageText(text);
             // Custom function because JS Regex is evil and can't escape to save itself.
             var notSed = caretReply.sedMatch(txt);
-            console.log(notSed);
             if (notSed){
-                window.msg = msg;
-                console.log($(msg).find(".content"));
-                console.log($(msg).find(".content").text());
-                caretReply.setMessageText(msg.getAttribute("id").replace(/message-/,""), $(msg).find(".content").text().replace(new RegExp(notSed[0], notSed[2]), notSed[1]));
+                $.get("/message/" + msgId + "?plain=true", function(e) {
+                    caretReply.setMessageText(msgId, e.replace(new RegExp(notSed[0], notSed[2]), notSed[1]));
+                });
                 input.val("");
                 return;
             }
