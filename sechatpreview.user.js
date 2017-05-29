@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Chat Preview
 // @namespace    http://tampermonkey.net/
-// @version      0.1.7
+// @version      0.1.8
 // @description  Preivew SE chat before posting!
 // @author       The Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*

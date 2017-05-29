@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Caret Reply
 // @namespace    http://tampermonkey.net/
-// @version      1.0.5
+// @version      1.1.0
 // @description  Automatically reply to messages by using ^Message
 // @author       The Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
