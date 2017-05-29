@@ -31,13 +31,21 @@
         if (taco.installedScripts.find(x => x === "caretReply")) {
             var replyTo = taco.caretReply.getMessage(s);
             if (replyTo) {
-                replyTo = $(replyTo);
+                var msgId = replyTo.getAttribute("id").replace(/message-/, "");
+                replyTo = $("#message-"+msgId);
                 var usr_name = replyTo.parent().parent().find(".tiny-signature").find(".username").text();
-                wrap_left = `<b>${usr_name}</b><br><b style='color:gray;'>${replyTo.text()}</b><br><br>`;
+                wrap_left = `<b>${usr_name}</b><br><b style='color:gray;'>${replyTo.find(".content").text()}</b><br><br>`;
                 s = taco.caretReply.getMessageText(s);
                 if (s === "*") {
                     s = "";
-                    wrap_right = "<span class='stars vote-count-container'><span class='img vote'></span><span class='times'>+1</span></span>";
+                    wrap_right = "<span class='stars vote-count-container'><span class='img vote'></span><span class='times'>±1</span></span>";
+                }
+                if(taco.caretReply.sedMatch){
+                    var match = taco.caretReply.sedMatch(s);
+                    if(match){
+                        wrap_right += "<span style='font-size:20px;'>&#x270D;</span>";
+                        s = replyTo.find(".content").text().replace(new RegExp(match[0], match[2]), match[1]);
+                    }
                 }
             }
         }

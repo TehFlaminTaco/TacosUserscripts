@@ -75,6 +75,62 @@
         return false;
     };
 
+    // You cannot even believe how difficult it was for me to find out how this works.
+    var nullFnc = ()=>{};
+    caretReply.setMessageText = function(id, text){
+        $.ajax({'type' : 'POST',
+        'url' : `/messages/${id}`,
+        'data' : fkey({'text' : text}),
+        'success': nullFnc,
+        'dataType' : 'json',
+        'error' : nullFnc})
+    }
+
+    caretReply.sedMatch = function(text){
+        text = text.split("");
+        if(text[0]!="s")
+            return false;
+        text.splice(0,1);
+        var key = text.splice(0,1)[0];
+        if(!key || !key.match(/[^a-zA-Z0-9 \\]/))
+            return false;
+        var matchID = -1;
+        for (matchID = 0; matchID < text.length; matchID++){
+            var s = text[matchID];
+            if(s == "\\"){ // If escape, skip the next character. 
+                matchID++;
+                continue;
+            }
+            if(s == key){ // We have found it! The legendary MatchEnd!
+                break;
+            }
+        }
+        var match = text.splice(0, matchID).join("");
+        if(!match || matchID == text.length)
+            return;
+        text.splice(0,1);
+        var replaceID = -1;
+        for (replaceID = 0; replaceID < text.length; replaceID++){
+            var s = text[replaceID];
+            if(s == "\\"){ // If escape, skip the next character. 
+                replaceID++;
+                continue;
+            }
+            if(s == key){ // Having a replacement is actually optional here.
+                break;
+            }
+        }
+        var hasFlags = replaceID < text.length;
+        var replace = text.splice(0, replaceID).join("");
+        if(!replace)
+            return false;
+        if(hasFlags){
+            text.splice(0,1);
+            return [match, replace, text.join("")]
+        }
+        return [match, replace, "gmi"];
+    }
+
     $.fn.extend({
         bindAs: function(nth, type, data, fn) {
             if (type.indexOf(' ') > -1) {
@@ -132,15 +188,32 @@
     input.bindAs(0, 'keydown', function(event) {
         if (event.which == 13) {
             var text = input.val();
-            var msg = caretReply.getMessage(text);
+            var olMessage = caretReply.getMessage(text);
+            if(!olMessage)
+                return;
+            var msgId = olMessage.getAttribute("id").replace(/message-/, "");
+            var msg = $("#message-"+msgId)[0];
+            console.log(msgId, msg);
             if (!msg)
                 return;
             if (caretReply.getMessageText(text) == "*") {
                 $(msg).find(".meta").find(".stars").find(".img.vote").click();
                 input.val("");
+                return;
             }
-            else
-                input.val(msg.getAttribute("id").replace(/message-/, ":") + " " + caretReply.getMessageText(text));
+            var txt = caretReply.getMessageText(text);
+            // Custom function because JS Regex is evil and can't escape to save itself.
+            var notSed = caretReply.sedMatch(txt);
+            console.log(notSed);
+            if (notSed){
+                window.msg = msg;
+                console.log($(msg).find(".content"));
+                console.log($(msg).find(".content").text());
+                caretReply.setMessageText(msg.getAttribute("id").replace(/message-/,""), $(msg).find(".content").text().replace(new RegExp(notSed[0], notSed[2]), notSed[1]));
+                input.val("");
+                return;
+            }
+            input.val(":" + msgId + " " + txt);
         }
     });
 })();
