@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         I Am Typing
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.2.1
 // @description  Show other stack exchange users you're typing!
 // @author       The Flamin'Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -58,6 +58,13 @@
 			send("startTyping");
 	}
 
+	function updateTyping(){
+		if(isTyping())
+			send("startTyping");
+		else
+			send("stopTyping");
+	}
+
 	function onmessage(msg){
 		// We trust all the data from this socket to be formatted correctly.
 		var data = JSON.parse(msg.data);
@@ -89,7 +96,7 @@
 
 	connect();
 
-	$("#input").keyup(affirmTyping);
+	$("#input").keyup(updateTyping);
 
 
 	function getTyperText(){
