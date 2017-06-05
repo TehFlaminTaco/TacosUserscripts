@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Chat Preview
 // @namespace    http://tampermonkey.net/
-// @version      0.1.9
+// @version      0.1.10
 // @description  Preivew SE chat before posting!
 // @author       The Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -58,7 +58,7 @@
         chat_prev.innerHTML = wrap_left + markdownMini(s) + wrap_right;
     };
 
-    $("#main").append('<div id="chat-preview" style="position:fixed;bottom:80px;margin-bottom:12px;border:solid;border-radius:4px;background:white;padding:4px;display:none"></div>');
+    $("#main").append('<div id="chat-preview" style="position:fixed;bottom:95px;margin-bottom:12px;border:solid;border-radius:4px;background:white;padding:4px;display:none"></div>');
     var stored = "";
     var timer = -1;
     setInterval(function() {
