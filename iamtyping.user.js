@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         I Am Typing
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Show other stack exchange users you're typing!
 // @author       The Flamin'Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -10,7 +10,9 @@
 // @include *://chat.stackoverflow.com/rooms/*
 // @include *://chat.askubuntu.com/rooms/*
 // @include *://chat.serverfault.com/rooms/*
+// @updateURL   https://github.com/TehFlaminTaco/TacosUserscripts/raw/master/iamtyping.user.js
 // @grant        none
+
 // ==/UserScript==
 
 (function() {
@@ -72,7 +74,7 @@
 			for(var i=0; i < typers.length; i++){
 				if(typers[i][0] == userID())
 					continue;
-				typerNames[i] = typers[i][1];
+				typerNames.push(typers[i][1]);
 			}
 			typerSpan.innerHTML = getTyperText();
 			affirmTyping();
