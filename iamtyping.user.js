@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         I Am Typing
 // @namespace    http://tampermonkey.net/
-// @version      0.2.1
+// @version      0.2.2
 // @description  Show other stack exchange users you're typing!
 // @author       The Flamin'Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -54,8 +54,6 @@
 		var isTyp = isTyping();
 		if(thinksTyping && !isTyp)
 			send("stopTyping");
-		if(!thinksTyping&&  isTyp)
-			send("startTyping");
 	}
 
 	function updateTyping(){
