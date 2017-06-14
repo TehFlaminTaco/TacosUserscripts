@@ -30,6 +30,7 @@
         cool: "(▀̿Ĺ̯▀̿ ̿)",
         lenny: "( ͡° ͜ʖ ͡°)",
         borkalert: "BORK ALERT 🚨 BORK ALERT 🚨 BORK ALERT",
+        XD: "(lambda x:''.join(x.split())[2:0:-1])('MD XF')",
         ["\\$(\\$?)(.+?)\\$"]: function(_, a, s) {
             return "https://a-ta.co/mathjax/"+ encodeURIComponent(a) + "!" + btoa(s) + ".svg";
         },
