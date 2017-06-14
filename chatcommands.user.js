@@ -21,7 +21,9 @@
     var codes = {
         shrug: "¯\\\\_(ツ)_/¯",
         tableflip: "(ノ°Д°）ノ︵ ┻━┻",
-        o_o: "ಠ_ಠ",
+        ["o[_o]*o"]: function(a) {
+            return a.replace(/o/g, "ಠ");    
+        }, //keeping in mind I don't actually know JS and this might now work.
         disapprove: "ಠ_ಠ",
         like: "(•◡•)/",
         unflip: "┬─┬ ノ( ゜-゜ノ)",
