@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Chat Commands
 // @namespace    http://tampermonkey.net/
-// @version      0.2.8
+// @version      0.2.9
 // @description  Add some simple ascii art commands.
 // @author       Teh Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -21,7 +21,9 @@
     var codes = {
         shrug: "¯\\\\_(ツ)_/¯",
         tableflip: "(ノ°Д°）ノ︵ ┻━┻",
-        o_o: "ಠ_ಠ",
+        "o_+o": function(m) {
+            return "ಠ"+"_".repeat(m.length-3)+"ಠ";
+        },
         disapprove: "ಠ_ಠ",
         like: "(•◡•)/",
         unflip: "┬─┬ ノ( ゜-゜ノ)",
