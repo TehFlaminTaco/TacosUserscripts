@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Chat Commands
 // @namespace    http://tampermonkey.net/
-// @version      0.2.8
+// @version      0.2.9
 // @description  Add some simple ascii art commands.
 // @author       Teh Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -23,7 +23,7 @@
         tableflip: "(ノ°Д°）ノ︵ ┻━┻",
         ["o[_o]*o"]: function(a) {
             return a.replace(/o/g, "ಠ");    
-        }, //keeping in mind I don't actually know JS and this might now work.
+        },
         disapprove: "ಠ_ಠ",
         like: "(•◡•)/",
         unflip: "┬─┬ ノ( ゜-゜ノ)",
