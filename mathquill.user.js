@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Math Quill
 // @namespace    http://tampermonkey.net/
-// @version      0.2.1
+// @version      0.2.2
 // @description  Use MathQuill on Chat.SE
 // @author       The Flamin'Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -60,6 +60,7 @@
 				$("#input").val(out);
 				$("#sayit-button").click();
 				answerMathField.latex("");
+				$("#input").select();$("#input").focus();
 			}
 		}
 		$("#input").on("keyup", function(e){
