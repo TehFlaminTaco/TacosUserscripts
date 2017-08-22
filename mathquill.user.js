@@ -22,6 +22,7 @@
 	var scrp;
 	scrp = document.createElement("script");
 	scrp.onload = function(){
+		var input = $("#input");
 		var MQ = MathQuill.getInterface(2);
 		var buttons = $("#bubble")[0];
 		var mathf = $("<span id='mathf'></span>")[0];
@@ -38,13 +39,13 @@
 		var setField = function(a){
 			current = a;
 			if(a){
-				$("#input").css({display: "none"});
+				input.css({display: "none"});
 				$("#mathf").css({display: "block"});
-				answerMathField.select();answerMathField.focus();
+				answerMathField.focus();
 			}else{
-				$("#input").css({display: "block"});
+				input.css({display: "block"});
 				$("#mathf").css({display: "none"});
-				$("#input").select();$("#input").focus();
+				input.focus();
 			}
 		}
 		console.log(answerMathField);
@@ -56,17 +57,25 @@
 				return;
 			}
 			if(e.key == "Enter"){
-				var out = "https://a-ta.co/mathjax/$%24!"+btoa(answerMathField.latex())+".svg";
-				$("#input").val(out);
-				$("#sayit-button").click();
+				if(e.shiftKey)
+					input.val(input.val()+"$$"+answerMathField.latex()+"$$");
+				else
+					input.val(input.val()+"$"+answerMathField.latex()+"$");
 				answerMathField.latex("");
-				$("#input").select();$("#input").focus();
+				setField(0);
+				input[0].selectionStart = input.val().length;
+				input[0].selectionEnd = input.val().length;
+				e.preventDefault();
 			}
 		}
-		$("#input").on("keyup", function(e){
-			if($("#input").val()=="/$"){
-				$("#input").val("");
+		input.on("keyup", function(e){
+			var c = input.val().match(/\$\$?/g);
+			if(c && c.length%2){
+				var tex = input.val().match(/[^$]*$/)[0];
+				var nottex = input.val().match(/(.*)\$/)[1];
 				setField(1);
+				input.val(nottex);
+				answerMathField.latex(tex);
 				e.preventDefault();
 			}
 		});
