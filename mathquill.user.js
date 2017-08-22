@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Math Quill
 // @namespace    http://tampermonkey.net/
-// @version      0.2.2
+// @version      0.2.3
 // @description  Use MathQuill on Chat.SE
 // @author       The Flamin'Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
