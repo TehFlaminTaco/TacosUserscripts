@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Math Quill
 // @namespace    http://tampermonkey.net/
-// @version      0.2.3
+// @version      0.2.4
 // @description  Use MathQuill on Chat.SE
 // @author       The Flamin'Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -69,7 +69,7 @@
 			}
 		}
 		input.on("keyup", function(e){
-			var c = input.val().match(/\$\$?/g);
+			var c = input.val().match(/\b\$\$?/g);
 			if(c && c.length%2){
 				var tex = input.val().match(/[^$]*$/)[0];
 				var nottex = input.val().match(/(.*)\$/)[1];
