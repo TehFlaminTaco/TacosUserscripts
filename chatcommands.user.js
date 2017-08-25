@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Chat Commands
 // @namespace    http://tampermonkey.net/
-// @version      0.2.10
+// @version      0.2.11
 // @description  Add some simple ascii art commands.
 // @author       Teh Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -54,7 +54,7 @@
     setInterval(function() {
         for (var code in codes) {
             var x = document.getElementById("input");
-            x.value = x.value.replace(new RegExp("\\b/" + code), codes[code]);
+            x.value = x.value.replace(new RegExp("(?:\\s|^)/" + code), codes[code]);
         }
     }, 300);
 })();
