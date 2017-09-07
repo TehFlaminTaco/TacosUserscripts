@@ -32,7 +32,7 @@
 .scores .poll_score{
   padding-left:16px;
 }</style>`);
-	
+
 	var polls = $("#polls");
 	var socket;
 	var room = CHAT.CURRENT_ROOM_ID;
@@ -41,8 +41,7 @@
 	var updatePolls = function(){
 		polls.html(""); // Clear the current polls.
 
-		for(var i=0; i < polls_data.length; i++){
-			var poll = polls_data[i];
+		polls_data.forEach(poll=>{
 			var entry = document.createElement('li');
 			entry.setAttribute("id",`poll-${i}`);
 			entry.setAttribute('class', 'poll');
@@ -93,7 +92,7 @@
 			entry.append(scores);
 
 			polls.append(entry);
-		}
+		});
 
 	}
 
