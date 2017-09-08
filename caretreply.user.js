@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Caret Reply
 // @namespace    http://tampermonkey.net/
-// @version      1.1.1
+// @version      1.2.0
 // @description  Automatically reply to messages by using ^Message
 // @author       The Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -185,7 +185,8 @@
             caretReply.storedMessages = $("[id^=message]");
     });
 
-    input.bindAs(0, 'keydown', function(event) {
+    //input.bindAs(0, 'keydown', function(event) {
+    var onKey = function(event){
         if (event.which == 13) {
             var text = input.val();
             var olMessage = caretReply.getMessage(text);
@@ -193,7 +194,6 @@
                 return;
             var msgId = olMessage.getAttribute("id").replace(/message-/, "");
             var msg = $("#message-"+msgId)[0];
-            console.log(msgId, msg);
             if (!msg)
                 return;
             if (caretReply.getMessageText(text) == "*") {
@@ -213,5 +213,11 @@
             }
             input.val(":" + msgId + " " + txt);
         }
-    });
+    };
+
+    input.bind("keydown", onKey);
+    var inpEvents = $._data(input[0],'events').keydown
+    //var evnt = inpEvents.splice(-1,1)[0]
+    //$._data(input[0],'events').keydown = [evnt].concat(inpEvents);
+    inpEvents.unshift(inpEvents.pop());
 })();
