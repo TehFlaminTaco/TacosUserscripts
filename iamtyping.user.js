@@ -33,15 +33,15 @@
 	}
 
 	function userID(){
-		return Number($("#active-user")[0].getAttribute("class").match(/user-(\d+)/)[1]);
+		return CHAT.CURRENT_USER_ID;
 	}
 
 	function userName(){
-		return $("#active-user").find("img")[0].getAttribute("title");
+		return CHAT.RoomUsers.getIfAvailable(CHAT.CURRENT_USER_ID).name;
 	}
 
 	function room(){
-		return Number(document.URL.match(/rooms\/(\d+)/)[1]);
+		return CHAT.CURRENT_ROOM_ID;
 	}
 
 	function isTyping(){
