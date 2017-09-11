@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Strawpoll Box
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Adds a list of recent polls that can be previewed and voted on!
 // @author       The Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -18,19 +18,28 @@
 (function() {
 	'use strict';
 	// This horrifying one liner adds the polls widget.
-	$($("#widgets").find("div.sidebar-widget")[1]).after($(`<div class="sidebar-widget" style="display:block;"><div class="fr msg-small">Recent polls</div><br class="cboth"><ul id="polls" class="collapsible"></ul></div>`));
+	$($("#widgets").find("div.sidebar-widget")[1]).after($(`<div class="sidebar-widget" style="display:block;"><div class="fr msg-small">Recent polls <a id="displayPollsButton" onclick="toggle_polls()" class="fake_link">show</a></div><br class="cboth"><ul id="polls" class="collapsible" style="display:none;"></ul></div>`));
 	$("body").append(`<style>.scores{
-  font-family: monospace;
-  font-size: 16px;
+  font-size: 10px;
   position: relative;
   left: 32px;
 }
 
-.scores .poll_option{
-  font-weight: bold;
+.poll{
+  font-size:10px;
 }
-.scores .poll_score{
-  padding-left:16px;
+
+.scores tr{
+  border-bottom:solid 1px black;
+  border-bottom:solid 1px rgba(0,0,0,0.3);
+}
+
+.poll_option{
+  font-weight:bold;
+}
+
+.poll_score{
+  padding-left:12px;
 }</style>`);
 
 	var polls = $("#polls");
@@ -49,7 +58,7 @@
 
 			var pollLink = document.createElement('a');
 			pollLink.setAttribute('href',`http://www.strawpoll.me/${poll.poll_id}`);
-			pollLink.textContent = `${poll.title || poll.poll_id}`
+			pollLink.innerHTML = `${poll.title || poll.poll_id}`
 
 			entry.append(pollLink);
 			entry.append(' - ');
@@ -78,7 +87,7 @@
 
 				var optionName = document.createElement('td');
 				optionName.setAttribute("class", "poll_option");
-				optionName.textContent = poll.options[i];
+				optionName.innerHTML = poll.options[i];
 				score.append(optionName);
 				
 				var vote = document.createElement("td");
@@ -114,6 +123,19 @@
 	}
 
 	connect();
+
+	var pollsOn = false;
+	window.toggle_polls = function(){
+		if(pollsOn){
+			polls.css({display: "none"});
+			$("#displayPollsButton").text("show");
+		}else{
+			polls.css({display: "block"});
+			$("#displayPollsButton").text("hide");
+		}
+		pollsOn = !pollsOn;
+		return false;
+	}
 
 	setInterval(function(){
 		socket.send(JSON.stringify({action: "update", data: room}))
