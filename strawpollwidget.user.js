@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Strawpoll Box
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.2.1
 // @description  Adds a list of recent polls that can be previewed and voted on!
 // @author       The Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -19,7 +19,11 @@
 	'use strict';
 	// This horrifying one liner adds the polls widget.
 	$($("#widgets").find("div.sidebar-widget")[1]).after($(`<div class="sidebar-widget" style="display:block;"><div class="fr msg-small">Recent polls <a id="displayPollsButton" onclick="toggle_polls()" class="fake_link">show</a></div><br class="cboth"><ul id="polls" class="collapsible" style="display:none;"></ul></div>`));
-	$("body").append(`<style>.scores{
+	$("body").append(`<style>.fake_link :hover{
+	cursor: pointer;
+}
+
+.scores{
   font-size: 10px;
   position: relative;
   left: 32px;
@@ -50,11 +54,15 @@
 	var updatePolls = function(){
 		polls.html(""); // Clear the current polls.
 
-		polls_data.forEach(poll=>{
+		polls_data.forEach((poll,i)=>{
 			var entry = document.createElement('li');
 			entry.setAttribute("id",`poll-${i}`);
 			entry.setAttribute('class', 'poll');
 			entry.setAttribute('style','display:block;');
+
+			var replyButton = document.createElement('a');
+			a.innerHTML = '&#x21A9;';
+
 
 			var pollLink = document.createElement('a');
 			pollLink.setAttribute('href',`http://www.strawpoll.me/${poll.poll_id}`);
