@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CMC Widget
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Adds a list of recent CMCs!
 // @author       The Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -24,7 +24,7 @@
 
 	// This horrifying one liner adds the cmcs widget.
 	$($("#widgets").find("div.sidebar-widget")[1]).after($(`<div class="sidebar-widget" style="display:block;"><div class="fr msg-small">Recent CMCs <a id="displayCMCsButton" onclick="toggle_CMCs()" class="fake_link">show</a></div><br class="cboth"><ul id="CMCs" class="collapsible" style="display:none;"></ul></div>`));
-	$("body").append(`<style>.fake_link :hover{
+	$("body").append(`<style>.fake_link:hover{
 	cursor: pointer;
 }
 
@@ -104,10 +104,13 @@
 
 	}
 
+	var top = 0;
 	var onmessage = function(msg){
 		try{
-			CMCs_data = JSON.parse(msg.data);
-			updateCMCs();
+			CMCs_data = JSON.parse(msg.data).reverse();
+			if(CMCs_data[3] != top)
+				updateCMCs();
+			top = CMCs_data[3];
 		}catch(e){
 			console.error(e);
 			console.log(msg);
