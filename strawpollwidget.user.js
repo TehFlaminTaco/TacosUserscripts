@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Strawpoll Box
 // @namespace    http://tampermonkey.net/
-// @version      0.2.3
+// @version      0.2.4
 // @description  Adds a list of recent polls that can be previewed and voted on!
 // @author       The Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -59,10 +59,6 @@
 			entry.setAttribute("id",`poll-${i}`);
 			entry.setAttribute('class', 'poll');
 			entry.setAttribute('style','display:block;');
-
-			var replyButton = document.createElement('a');
-			a.innerHTML = '&#x21A9;';
-
 
 			var pollLink = document.createElement('a');
 			pollLink.setAttribute('href',`http://www.strawpoll.me/${poll.poll_id}`);
