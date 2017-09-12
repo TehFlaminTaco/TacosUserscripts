@@ -21,8 +21,8 @@
     var codes = {
         shrug: "¯\\\\_(ツ)_/¯",
         tableflip: "(ノ°Д°）ノ︵ ┻━┻",
-        "o_+o": function(m) {
-            return "ಠ"+"_".repeat(m.length-3)+"ಠ";
+        ["o[_o]*o"]: function(a) {
+            return a.replace(/o/g, "ಠ");    
         },
         disapprove: "ಠ_ಠ",
         like: "(•◡•)/",
