@@ -54,7 +54,7 @@
     setInterval(function() {
         for (var code in codes) {
             var x = document.getElementById("input");
-            x.value = x.value.replace(new RegExp("(?:\\s|^)/" + code), codes[code]);
+            x.value = x.value.replace(new RegExp("(?<=\\s|^)/" + code), codes[code]);
         }
     }, 300);
 })();
