@@ -58,9 +58,9 @@
 			}
 			if(e.key == "Enter"){
 				if(e.shiftKey)
-					input.val(input.val()+"$$"+answerMathField.latex()+"$$");
+					input.val(input.val()+"$$$"+answerMathField.latex()+"$$$");
 				else
-					input.val(input.val()+"$"+answerMathField.latex()+"$");
+					input.val(input.val()+"$$"+answerMathField.latex()+"$$");
 				answerMathField.latex("");
 				setField(0);
 				input[0].selectionStart = input.val().length;
@@ -69,7 +69,7 @@
 			}
 		}
 		input.on("keyup", function(e){
-			var c = input.val().match(/(\s|^)\$\$?[^$]*$/);
+			var c = input.val().match(/(\s|^)\$\$\$?[^$]*$/);
 			if(c){
 				var tex = input.val().match(/[^$]*$/)[0];
 				var nottex = input.val().match(/(.*)\$/)[1];
