@@ -22,6 +22,7 @@
         shrug: "¯\\\\_(ツ)_/¯",
         tableflip: "(ノ°Д°）ノ︵ ┻━┻",
         "o_+o": function(m) {
+            m.replace(/^\s+/, '')
             return "ಠ"+"_".repeat(m.length-3)+"ಠ";
         },
         disapprove: "ಠ_ಠ",
@@ -54,7 +55,7 @@
     setInterval(function() {
         for (var code in codes) {
             var x = document.getElementById("input");
-            x.value = x.value.replace(new RegExp("(?<=\\s|^)/" + code), codes[code]);
+            x.value = x.value.replace(new RegExp("(?:\\s|^)/" + code), codes[code]);
         }
     }, 300);
 })();
