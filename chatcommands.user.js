@@ -22,7 +22,7 @@
         shrug: "¯\\\\_(ツ)_/¯",
         tableflip: "(ノ°Д°）ノ︵ ┻━┻",
         "o_+o": function(m) {
-            m.replace(/^\s+/, '')
+            m = m.replace(/^\s+/, '')
             return "ಠ"+"_".repeat(m.length-3)+"ಠ";
         },
         disapprove: "ಠ_ಠ",
