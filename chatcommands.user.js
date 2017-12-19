@@ -22,7 +22,8 @@
         shrug: "¯\\\\_(ツ)_/¯",
         tableflip: "(ノ°Д°）ノ︵ ┻━┻",
         "o_+o": function(m) {
-            return "ಠ"+"_".repeat(m.length-3)+"ಠ";
+            var head = /\s+/.exec(m) || '';
+            return head + "ಠ" + "_".repeat(m.length-3-head.length) + "ಠ";
         },
         disapprove: "ಠ_ಠ",
         like: "(•◡•)/",
