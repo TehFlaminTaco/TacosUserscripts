@@ -52,7 +52,10 @@
     setInterval(function() {
         for (var code in codes) {
             var x = document.getElementById("input");
-            x.value = x.value.replace(new RegExp("(?:\\s|^)/" + code), codes[code]);
+            x.value = x.value.replace(new RegExp("(?:\\s|^)/" + code), function(m){
+                var s = m.match(/^(\s*)(.*)/)
+                return s[1]+m.replace(s[2],codes[code])
+            });
         }
     }, 300);
 })();
