@@ -45,7 +45,7 @@
 					"nn": "\n\n",
 					"permalink": location.href,
 					"timestamp": Date.now().toString(36),
-					"codeOrTio": code.match(/\n/)?"Try It Online!":code=="\\"?'``\``':'`'+code.replace(/`/g, "\\`")+'`'
+					"codeOrTio": code.match(/\n/)||code.length==0?"Try It Online!":'`'+code.replace(/(`|\\$)/g, s=>`\\${s}`)+'`'
 				};
 				var textAreas = $$("#permalink-drawer textarea");
 				for (var i = 0; i < textAreas.length; i++) {

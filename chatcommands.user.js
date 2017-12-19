@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Chat Commands
 // @namespace    http://tampermonkey.net/
-// @version      0.2.11
+// @version      0.2.12
 // @description  Add some simple ascii art commands.
 // @author       Teh Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -21,9 +21,7 @@
     var codes = {
         shrug: "¯\\\\_(ツ)_/¯",
         tableflip: "(ノ°Д°）ノ︵ ┻━┻",
-        "o_+o": function(m) {
-            return "ಠ"+"_".repeat(m.length-3)+"ಠ";
-        },
+        "o(_+)o": "ಠ$1ಠ",
         disapprove: "ಠ_ಠ",
         like: "(•◡•)/",
         unflip: "┬─┬ ノ( ゜-゜ノ)",
@@ -32,7 +30,7 @@
         cool: "(▀̿Ĺ̯▀̿ ̿)",
         lenny: "( ͡° ͜ʖ ͡°)",
         borkalert: "BORK ALERT 🚨 BORK ALERT 🚨 BORK ALERT",
-        ["\\$(\\$?)(.+?)\\$"]: function(_, a, s) {
+        ["\\$(\\$?)(.+?)\\$\\1"]: function(_, a, s) {
             return "https://a-ta.co/mathjax/"+ encodeURIComponent(a) + "!" + btoa(s) + ".svg";
         },
         [":(.*?):"]: (_, a)=>{
