@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TIO Prettify
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @description  Adds Google Prettyprint to TIO.
 // @author       Teh Flamin' Taco
 // @match        https://tio.run/*
@@ -21,36 +21,38 @@
 
 
     for(var i=0; i < editors.length; i++){
-        var e = editors[i];
-        var div = document.createElement('div');
-        div.setAttribute('class', 'text_area_holder');
-
-
-        holder.insertBefore(div, e);
-
-        var syntax = document.createElement('pre');
-        syntax.setAttribute('class', 'prettyprint syntax');
-
-        div.append(syntax);
-        div.append(e);
-
-        editors[i] = {
-            textarea : e,
-            div : div,
-            syntax : syntax
-        };
-    }
-
-    function updateHolders(){
-        for(var i=0; i < editors.length; i++){
+        (function(i){
             var e = editors[i];
-            e.syntax.textContent = e.textarea.value;
-            e.syntax.setAttribute('class', 'prettyprint syntax');
-        }
-        PR.prettyPrint();
-    }
+            var div = document.createElement('div');
+            div.setAttribute('class', 'text_area_holder');
 
-    setInterval(updateHolders, 100);
+
+            holder.insertBefore(div, e);
+
+            var syntax = document.createElement('pre');
+            syntax.setAttribute('class', 'prettyprint syntax');
+
+            div.append(syntax);
+            div.append(e);
+
+            editors[i] = {
+                textarea : e,
+                div : div,
+                syntax : syntax
+            };
+            var oldCode = '';
+            var update = function(){
+                if(e.value != oldCode){
+                    syntax.textContent = e.value;
+                    syntax.setAttribute('class', 'prettyprint syntax');
+                    oldCode = e.value;
+                }
+                PR.prettyPrint();
+            }
+            e.addEventListener("input", update);
+            s_pretty.addEventListener("load", update);
+        })(i);
+    }
 
     var c_style = document.createElement('style');
     c_style.innerHTML = `#header, #footer, #code{
