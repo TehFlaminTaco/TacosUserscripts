@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Funky Syntax Highlighter
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Adds Funky's syntax highlighting to TIO.
 // @author       Teh Flamin' Taco
 // @match        https://tio.run/*
@@ -56,11 +56,15 @@
 			}
 
 			.faded{
-			  opacity:0;
+			  opacity:0.3;
 			}
 
 	        tok_operator.colorized, tok_paranexp.colorized{
 	          color:#FFF;
+	        }
+
+	        tok_comment.colorized{
+	          color:#888;
 	        }
 
 			.colorized{
@@ -79,6 +83,11 @@
 			document.getElementById('interpreter').insertBefore(code_holder, code);
 			code_holder.append(pre_syntax);
 			code_holder.append(document.getElementById('code'));
+
+
+			function doShow(){
+				return code.value.length < 300 || document.activeElement == code
+			}
 
 			s_tokens.onload = function(){
 				var t_tokens = window.module.exports;
@@ -131,12 +140,12 @@
 					var oldCode = '';
 					var visible = false;
 					setInterval(function(){
-						if(!visible && document.activeElement != code){
+						if(!visible && doShow()){
 							visible = true;
 							pre_syntax.setAttribute('class', '');
 							code.setAttribute('class', 'faded');
 						}
-						if(visible && document.activeElement == code){
+						if(visible && !doShow()){
 							visible = false;
 							code.setAttribute('class', '');
 							pre_syntax.setAttribute('class', 'hidden');
@@ -144,7 +153,8 @@
 
 						if(visible){
 							if(code.value != oldCode){
-								pre_syntax.innerHTML = colorToken(tokenizer.compile(code.value));
+								var tokens = tokenizer.compile(code.value);
+								pre_syntax.innerHTML = colorToken(tokens);
 								oldCode = code.value;
 							}
 						}
