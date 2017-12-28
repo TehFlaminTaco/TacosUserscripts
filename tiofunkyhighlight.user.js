@@ -11,10 +11,15 @@
 (function() {
     'use strict';
 
-    // Your code here...
-    window.addEventListener('load', function(){
-        if(languageId=='funky'){
-            window.module = {};
+    var repeater;
+    repeater = setInterval(function(){
+    	if(window.languageId == undefined){
+    		return;
+    	}
+    	clearInterval(repeater);
+    	repeater = undefined;
+    	if(window.languageId=='funky'){
+	        window.module = {};
 			var s_tokens = document.createElement('script');
 			s_tokens.setAttribute('src', 'https://a-ta.co/funky/funky/tokens.js');
 			document.body.append(s_tokens);
@@ -54,9 +59,9 @@
 			  opacity:0;
 			}
 
-            tok_operator.colorized, tok_paranexp.colorized{
-              color:#FFF;
-            }
+	        tok_operator.colorized, tok_paranexp.colorized{
+	          color:#FFF;
+	        }
 
 			.colorized{
 			  font-weight: normal;
@@ -150,6 +155,6 @@
 
 				};
 			};
-        }
-    });
+    	}
+	}, 100);
 })();
