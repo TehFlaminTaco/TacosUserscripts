@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TIO Prettify
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Adds Google Prettyprint to TIO.
 // @author       Teh Flamin' Taco
 // @match        https://tio.run/*
@@ -44,7 +44,7 @@
     function updateHolders(){
         for(var i=0; i < editors.length; i++){
             var e = editors[i];
-            e.syntax.innerHTML = e.textarea.value;
+            e.syntax.textContent = e.textarea.value;
             e.syntax.setAttribute('class', 'prettyprint syntax');
         }
         PR.prettyPrint();
