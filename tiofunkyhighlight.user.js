@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Funky Syntax Highlighter
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4
 // @description  Adds Funky's syntax highlighting to TIO.
 // @author       Teh Flamin' Taco
 // @match        https://tio.run/*
@@ -62,7 +62,8 @@
 			}
 
 			.faded{
-			  opacity:0.3;
+			  color:rgba(0,0,0,0);
+			  caret-color:#FFF;
 			}
 
 	        tok_operator.colorized, tok_paranexp.colorized{
@@ -222,7 +223,8 @@
 		    var c_style = document.createElement('style');
 		    c_style.innerHTML = `#header, #footer, #code{
 		font-weight:0;
-		color:rgba(255,255,255,0.3);
+		color:rgba(255,255,255,0.0);
+		caret-color:#FFF;
 		}
 
 		.syntax{
