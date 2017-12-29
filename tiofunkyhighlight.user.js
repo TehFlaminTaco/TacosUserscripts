@@ -63,6 +63,7 @@
 
 			.faded{
 			  color:rgba(0,0,0,0);
+			  background:none;
 			  caret-color:#FFF;
 			}
 
