@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TIO Highlight.js
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Adds Highlight.js to TIO.
 // @author       Teh Flamin' Taco
 // @match        https://tio.run/*
@@ -60,26 +60,29 @@ color:rgba(255,255,255,0.3);
 }
 
 .syntax{
-width:100%;
 font-family: 'DejaVu Sans Mono';
-height:0;
 font-size: 16px;
 padding: 0 !important;
 float:left;
-width: 100%;
+width: calc(100% - 12px);
+height:0;
 margin: 0;
 border:0 !important;
 pointer-events: none;
-z-index: 1000;
 position:relative;
 display:block;
 top:5px;
 left:6px;
-overflow:unset!important;
+overflow:visible;
+white-space: pre-wrap;       /* Since CSS 2.1 */
+white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+white-space: -pre-wrap;      /* Opera 4-6 */
+white-space: -o-pre-wrap;    /* Opera 7 */
+word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
 
 .syntax span{
-  font-weight:normal;
+font-weight:normal;
 }`;
     var css_pretty = document.createElement('link');
     css_pretty.setAttribute('href', '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css');
