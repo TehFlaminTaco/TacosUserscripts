@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TIO Highlight.js
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @description  Adds Highlight.js to TIO.
 // @author       Teh Flamin' Taco
 // @match        https://tio.run/*
@@ -56,7 +56,8 @@
     var c_style = document.createElement('style');
     c_style.innerHTML = `#header, #footer, #code{
 font-weight:0;
-color:rgba(255,255,255,0.3);
+color:rgba(255,255,255,0.0);
+caret-color:#FFF;
 }
 
 .syntax{
