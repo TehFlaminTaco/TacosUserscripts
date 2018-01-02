@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TIO Highlight.js
 // @namespace    http://tampermonkey.net/
-// @version      0.4
+// @version      0.6
 // @description  Adds Highlight.js to TIO.
 // @author       Teh Flamin' Taco
 // @match        https://tio.run/*
@@ -41,7 +41,7 @@
             var update = function(){
                 if(e.value != oldCode){
                     syntax.textContent = e.value;
-                    syntax.setAttribute('class', 'syntax '+window.languageId);
+                    syntax.setAttribute('class', 'syntax '+window.languages[window.languageId].prettify||window.languageId);
                     oldCode = e.value;
                     window.hljs.highlightBlock(syntax);
                 }
