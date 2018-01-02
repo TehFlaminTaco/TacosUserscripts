@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Funky Syntax Highlighter
 // @namespace    http://tampermonkey.net/
-// @version      0.6
+// @version      0.6.1
 // @description  Adds Funky's syntax highlighting to TIO.
 // @author       Teh Flamin' Taco
 // @match        https://tio.run/*
@@ -209,7 +209,7 @@
 		            var update = function(){
 		                if(e.value != oldCode){
 		                    syntax.textContent = e.value;
-		                    syntax.setAttribute('class', 'syntax '+window.languages[window.languageId].prettify||window.languageId);
+		                    syntax.setAttribute('class', 'syntax '+(window.languages[window.languageId].prettify||window.languageId));
 		                    oldCode = e.value;
 		                    window.hljs.highlightBlock(syntax);
 		                }
