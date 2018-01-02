@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TIO Highlight.js
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4
 // @description  Adds Highlight.js to TIO.
 // @author       Teh Flamin' Taco
 // @match        https://tio.run/*
@@ -13,7 +13,7 @@
 
     // Your code here...
     var s_pretty = document.createElement("script");
-    s_pretty.setAttribute("src","//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js");
+    s_pretty.setAttribute("src","https://a-ta.co/highlight.pack.js");
     document.body.append(s_pretty);
 
     var editors = ["header","code","footer"].map(z=>document.getElementById(z));
