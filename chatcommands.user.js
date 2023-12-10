@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Chat Commands
 // @namespace    http://tampermonkey.net/
-// @version      0.3.0
+// @version      0.4.0
 // @description  Add some simple ascii art commands.
 // @author       Teh Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -35,10 +35,10 @@
         },
         [":(.*?):"]: (_, a)=>{
             if(window.emoji){
-                for(var category in emoji){
-                    for(var i=0; i < emoji[category].length; i++){
-                        if(emoji[category][i].description == a || emoji[category][i].aliases.find((x)=>x==a)){
-                            return emoji[category][i].emoji;
+                for(var category in window.emoji){
+                    for(var i=0; i < window.emoji[category].length; i++){
+                        if(window.emoji[category][i].description == a || window.emoji[category][i].aliases.find((x)=>x==a)){
+                            return window.emoji[category][i].emoji;
                         }
                     }
                 }
@@ -46,12 +46,15 @@
             }else{
                 return _;
             }
+        },
+        ["\\|([^\"]+?)\\|"]: function(_, a, s){
+            return `[spoiler](https://www.github.com/TehFlaminTaco/TacosUserscripts "${a}")`
         }
     };
 
     setInterval(function() {
-        for (var code in codes) {
-            var x = document.getElementById("input");
+        for (let code in codes) {
+            let x = document.getElementById("input");
             x.value = x.value.replace(new RegExp("(?:\\s|^)/" + code), function(m){
                 var s = m.match(/^(\s*)\/(.*)/)
                 return s[1]+s[2].replace(new RegExp(code),codes[code])
