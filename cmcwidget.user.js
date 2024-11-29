@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CMC Widget
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4
 // @description  Adds a list of recent CMCs!
 // @author       The Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -146,15 +146,15 @@
                 $(e).find("a").attr("name"),		      											// 3: Message ID
                 $(e).find(".content")[0].innerHTML.trim(), 											// 4: CMC Concent
             ]);
-            CMCs_data.concat([...$(".message").filter((i,e)=>$(e).find(".content")[0].innerHTML.trimStart().match(/^(@\S+\s*)?(<b>)?CMC:?(<\/b>)?/))]
+            CMCs_data=CMCs_data.concat([...$(".message").filter((i,e)=>$(e).find(".content")[0].innerHTML.trimStart().match(/^(@\S+\s*)?(<b>)?CMC:?(<\/b>)?/))]
                 .slice(0,3)
                 .map(e=>[
-                new Date(),						// 0: Time
+                new Date()/1000,						// 0: Time
                 $($(e).parent().parent().find(".username")[0]).parent().parent().attr("href").match(/\/users\/(\d+)/)[1],	// 1: User ID
                 $(e).parent().parent().find(".username")[0].textContent.trim(),						// 2: Username
                 e.id.substr("message-".length),		      											// 3: Message ID
                 $(e).find(".content")[0].innerHTML.trim(), 											// 4: CMC Concent
-            ]).filter(c=>!CMCs_data.some(j=>j[3]==c[3])));
+            ]).filter(c=>!CMCs_data.some(j=>j[3]==c[3]))).sort((a,b)=>b[3]-a[3]);
             updateCMCs();
         });
 	}
