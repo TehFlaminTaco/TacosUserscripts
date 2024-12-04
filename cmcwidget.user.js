@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CMC Widget
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.6
 // @description  Adds a list of recent CMCs!
 // @author       The Flamin' Taco
 // @include *://chat.meta.stackoverflow.com/rooms/*
@@ -98,10 +98,10 @@
 	function fromTimestamp(text){
         text = text.toLowerCase();
 		let n = new Date()/1000;
-		let hoursminutespm = text.match(/(\d?\d):(\d\d) ([ap]m)/);
+		let hoursminutespm = text.match(/(\d?\d):(\d\d)(?: ([ap]m))?/);
 		let hours = +hoursminutespm[1];
 		let minutes = +hoursminutespm[2];
-		let pm = +hoursminutespm[3];
+		let pm = hoursminutespm[3];
 		if(hours == 12){
 			hours = 0;
 		}
