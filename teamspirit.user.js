@@ -47,7 +47,7 @@ setInterval(function() {
 		(a,b)=>{
 			var links = $(b).find('a');
 			var jLink = $(links[links.length-1]);
-			var match = jLink.attr("href").match(/users\/(\d+)/);
+			var match = jLink[0].href.match(/users\/(\d+)/);
 			if(!match)
                 return;
 
